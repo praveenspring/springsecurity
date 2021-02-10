@@ -23,6 +23,7 @@ public WebSecurity(UserDetailsService userDetailsService, BCryptPasswordEncoder 
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().authorizeRequests()
 		.antMatchers(HttpMethod.POST,SecurityConstants.SIGN_UP_URL).permitAll()
+		.antMatchers(HttpMethod.POST,SecurityConstants.LOGIN_URL).permitAll()
 		.anyRequest().authenticated().and().addFilter(getAuthenticationFilter())
 		.addFilter(new AuthourizationFilter(authenticationManager()));
 		
@@ -40,19 +41,5 @@ public AuthenticationFIlter getAuthenticationFilter() throws Exception{
 	filter.setFilterProcessesUrl("/users/login");
 	return filter;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }

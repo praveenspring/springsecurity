@@ -37,17 +37,28 @@ public class AuthenticationFIlter extends UsernamePasswordAuthenticationFilter{
 @Override
 public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
 		throws AuthenticationException {
-
-	try {
-		UserLoginRequestModel creds=new  ObjectMapper()
-				.readValue(request.getInputStream(),UserLoginRequestModel.class );
-		
-		return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(creds.getEmil(), creds.getPassword(), new ArrayList<>()));
-	} catch (IOException e) {
-		throw new RuntimeException(e);
+        	
+        	  try {
+              	
+              	
+              	
+                  UserLoginRequestModel creds = new ObjectMapper()
+                          .readValue(request.getInputStream(), UserLoginRequestModel.class);
+                  
+                  return authenticationManager.authenticate(
+                          new UsernamePasswordAuthenticationToken(
+                                  creds.getEmail(),
+                                  creds.getPassword(),
+                                  new ArrayList<>())
+                  );
+            
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+	
 	}
 	
-}
+
 
 @Override
 protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
@@ -68,7 +79,7 @@ protected void successfulAuthentication(HttpServletRequest request, HttpServletR
 	
 	
 	response.addHeader(SecurityConstants.HEADER_STRING, SecurityConstants.TOKEN_PREFIX +token);
-response.addHeader("UserId", userDto.getUserId());
+response.addHeader("userId", userDto.getUserId());
 
 	
 	

@@ -21,8 +21,9 @@ public class LoginApi {
 	@Autowired
 UserService userService;
 	
-@PostMapping
-	public com.duedash.response.UserRest createUser(com.duedash.request.UserDetailsRequestModel userDetils)
+@PostMapping()
+
+	public com.duedash.response.UserRest createUser(@RequestBody com.duedash.request.UserDetailsRequestModel userDetils)
 	{
 	com.duedash.response.UserRest returnValue=new com.duedash.response.UserRest();
 	UserDto userDto=new UserDto();
